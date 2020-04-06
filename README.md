@@ -1,6 +1,8 @@
 # List All Emojis
 python script that reads a .txt file and creates a json array of all emojis
+- includes support for all combination emojis, including skin tone
 - includes support for all emoji versions
+
 
 ## Running
 run ```python emoji.py``` within the project directory

@@ -4,11 +4,12 @@
 # downloaded from: https://unicode.org/Public/emoji/
 inputFileName = 'emoji-test.txt'
 
-outputFileName = 'emojis.txt'
-
 # only select emojis up to a certain version
 # (iOS doesnt currently support version 13.0)
 maxEmojiVersion = '12.1'
+
+#filename based on emoji version
+outputFileName = 'emojis_' + str(maxEmojiVersion) + '.txt'
 
 # Methods for converting emojis
 def codepointToUnicode(codepoint): 

@@ -1,4 +1,4 @@
-# reads in file from unicode standard and creates a json array of all emojis in a .txt document
+# read file from unicode standard and create a json array of all emojis in a .txt document
 
 # file containing all standard unicode emojis
 # downloaded from: https://unicode.org/Public/emoji/
@@ -7,7 +7,7 @@ inputFileName = 'emoji-test.txt'
 outputFileName = 'emojis.txt'
 
 # only select emojis up to a certain version
-# (iOS doesnt current support version 13.0)
+# (iOS doesnt currently support version 13.0)
 maxEmojiVersion = '12.1'
 
 # Methods for converting emojis

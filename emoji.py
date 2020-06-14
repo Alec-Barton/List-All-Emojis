@@ -1,17 +1,14 @@
-# read file from unicode standard and create a json array of all emojis in a .txt document
-
+import json
 # file containing all standard unicode emojis
 # downloaded from: https://unicode.org/Public/emoji/
 inputFileName = 'emoji-test.txt'
-
 # only select emojis up to a certain version
 # (iOS doesnt currently support version 13.0)
-maxEmojiVersion = '12.1'
-
-#filename based on emoji version
-outputFileName = 'emojis_' + str(maxEmojiVersion) + '.txt'
-
+maxEmojiVersion = '13.0'
+#filename based on emoji version, change '.json' to '.txt' to export as text file
+outputFileName = 'emojis_' + str(maxEmojiVersion) + '.json'
 # Methods for converting emojis
+
 def codepointToUnicode(codepoint): 
     zerosToPrepend = 8 - len(codepoint)
     unicodeString = '\U' + ('0' * zerosToPrepend) + codepoint
@@ -35,7 +32,6 @@ def emojiVersionIsValid(version):
         return False
 
 emojiList = []
-
 emojiStandardFile = open(inputFileName, 'r') 
 lines = emojiStandardFile.readlines() 
 
@@ -43,18 +39,13 @@ for line in lines:
     if line[0] != '#':
         splitLine = line.split()
         if len(splitLine) > 0 and 'fully-qualified' in splitLine :
-
             emojiVersion = splitLine[splitLine.index(';') + 4][1:]
             if emojiVersionIsValid(emojiVersion):
-
                 # standard method
-
                 emoji = splitLine[splitLine.index(';') + 3]
                 emojiList.append(emoji)
-
                 # backup method
                 # if for some reason emojis cannot be read directly from file this method can read unicode values from file and convert them to emojis
-
                 # unicodeValues = []
                 # for subString in splitLine:
                 #     if subString == ';':
@@ -68,16 +59,16 @@ for line in lines:
                 #     emoji = unicodeToEmoji(unicodeValues[0])
                 #     emojiList.append(emoji)
 
-
-outputFile = open(outputFileName, "w")
-outputFile.write("[\n")
+data = {}
+data['emojis'] = []
 
 for emojiIndex in range(len(emojiList)):
     emoji = emojiList[emojiIndex]
-    outputString = str(emojiIndex) + ":\"" + emoji + "\",\n"
-    outputFile.write(outputString)
-
-outputFile.write("]")
-outputFile.close()
+    data['emojis'].append({
+        emojiIndex : emoji
+    })
+    
+with open(outputFileName, 'w') as outfile:
+    json.dump(data, outfile, indent=4, ensure_ascii=False)
 
 
